@@ -15,9 +15,4 @@ if you want to contribute. Also points to build instructions.
 
 ## Donation
 
-Like BeauTyXT? You can donate to [soupslurpr](https://github.com/soupslurpr), the lead developer of BeauTyXT to support their work on BeauTyXT and their other open source projects. Thank you!
-
-[Monero](https://www.getmonero.org/) address:\
-`88rAaNowhaC8JG8NJDpcdRWr1gGVmtFPnHWPS9xXvqY44G4XKVi5hZMax2FQ6B8KAcMpzkeJAhNek8qMHZjjwvkEKuiyBKF`
-
-The [Monero](https://www.getmonero.org/) address can also be found in the app's settings.
+Thank you to everyone who donated.
