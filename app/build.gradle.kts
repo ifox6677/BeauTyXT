@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "dev.soupslurpr.beautyxt"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 56
         versionName = "0.21.5"
 
