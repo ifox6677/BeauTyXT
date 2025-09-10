@@ -1,9 +1,9 @@
 [versions]
 activityCompose = "1.10.1"
 androidGradlePlugin = "8.13.0"
-coil = "3.1.0"
-coilCompose = "3.1.0"
-coilSvg = "3.1.0"
+coil = "3.3.0"
+coilCompose = "3.3.0"
+coilSvg = "3.3.0"
 composeBom = "2025.02.00"
 coreKtx = "1.15.0"
 datastorePreferences = "1.1.2"
