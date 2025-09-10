@@ -12,7 +12,7 @@ android {
     namespace = "dev.soupslurpr.beautyxt"
     compileSdk = 36
     buildToolsVersion = "35.0.1"
-    ndkVersion = "28.0.13004108"
+    ndkVersion = "28.2.13676358"
 
     defaultConfig {
         applicationId = "dev.soupslurpr.beautyxt"
