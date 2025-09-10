@@ -18,8 +18,8 @@ android {
         applicationId = "dev.soupslurpr.beautyxt"
         minSdk = 29
         targetSdk = 36
-        versionCode = 56
-        versionName = "0.21.5"
+        versionCode = 57
+        versionName = versionCode.toString()
 
         vectorDrawables {
             useSupportLibrary = true
