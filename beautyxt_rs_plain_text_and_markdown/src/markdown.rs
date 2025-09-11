@@ -53,6 +53,7 @@ pub fn markdown_to_html(markdown: &str) -> String {
         &Options {
             parse: MARKDOWN_PARSE_OPTIONS,
             compile: CompileOptions {
+                allow_any_img_src: false,
                 allow_dangerous_html: true,
                 allow_dangerous_protocol: true,
                 gfm_tagfilter: false,
