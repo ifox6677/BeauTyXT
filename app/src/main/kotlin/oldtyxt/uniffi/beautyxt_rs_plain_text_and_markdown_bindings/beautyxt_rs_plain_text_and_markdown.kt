@@ -17,6 +17,7 @@ package oldtyxt.uniffi.beautyxt_rs_plain_text_and_markdown_bindings
 // compile the Rust component. The easiest way to ensure this is to bundle the Kotlin
 // helpers directly inline like we're doing here.
 
+import com.sun.jna.Callback
 import com.sun.jna.Library
 import com.sun.jna.Native
 import com.sun.jna.Pointer
@@ -27,6 +28,7 @@ import java.nio.ByteOrder
 import java.nio.CharBuffer
 import java.nio.charset.CodingErrorAction
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 
 // This is a helper for safely working with byte buffers returned from the Rust code.
 // A rust-owned buffer is represented by its capacity, its current length, and a
@@ -102,7 +104,7 @@ class RustBufferByReference : ByReference(16) {
      */
     fun setValue(value: RustBuffer.ByValue) {
         // NOTE: The offsets are as they are in the C-like struct.
-        val pointer = pointer
+        val pointer = getPointer()
         pointer.setLong(0, value.capacity)
         pointer.setLong(8, value.len)
         pointer.setPointer(16, value.data)
@@ -112,7 +114,7 @@ class RustBufferByReference : ByReference(16) {
      * Get a `RustBuffer.ByValue` from this reference.
      */
     fun getValue(): RustBuffer.ByValue {
-        val pointer = pointer
+        val pointer = getPointer()
         val value = RustBuffer.ByValue()
         value.writeField("capacity", pointer.getLong(0))
         value.writeField("len", pointer.getLong(8))
@@ -358,7 +360,7 @@ internal inline fun <T, reified E : Throwable> uniffiTraitInterfaceCallWithError
 // This is used pass an opaque 64-bit handle representing a foreign object to the Rust code.
 internal class UniffiHandleMap<T : Any> {
     private val map = ConcurrentHashMap<Long, T>()
-    private val counter = java.util.concurrent.atomic.AtomicLong(0)
+    private val counter = AtomicLong(0)
 
     val size: Int
         get() = map.size
@@ -399,15 +401,15 @@ private inline fun <reified Lib : Library> loadIndirect(
 }
 
 // Define FFI callback types
-internal interface UniffiRustFutureContinuationCallback : com.sun.jna.Callback {
+internal interface UniffiRustFutureContinuationCallback : Callback {
     fun callback(`data`: Long, `pollResult`: Byte)
 }
 
-internal interface UniffiForeignFutureFree : com.sun.jna.Callback {
+internal interface UniffiForeignFutureFree : Callback {
     fun callback(`handle`: Long)
 }
 
-internal interface UniffiCallbackInterfaceFree : com.sun.jna.Callback {
+internal interface UniffiCallbackInterfaceFree : Callback {
     fun callback(`handle`: Long)
 }
 
@@ -445,7 +447,7 @@ internal open class UniffiForeignFutureStructU8(
 
 }
 
-internal interface UniffiForeignFutureCompleteU8 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteU8 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructU8.UniffiByValue)
 }
 
@@ -466,7 +468,7 @@ internal open class UniffiForeignFutureStructI8(
 
 }
 
-internal interface UniffiForeignFutureCompleteI8 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteI8 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructI8.UniffiByValue)
 }
 
@@ -487,7 +489,7 @@ internal open class UniffiForeignFutureStructU16(
 
 }
 
-internal interface UniffiForeignFutureCompleteU16 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteU16 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructU16.UniffiByValue)
 }
 
@@ -508,7 +510,7 @@ internal open class UniffiForeignFutureStructI16(
 
 }
 
-internal interface UniffiForeignFutureCompleteI16 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteI16 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructI16.UniffiByValue)
 }
 
@@ -529,7 +531,7 @@ internal open class UniffiForeignFutureStructU32(
 
 }
 
-internal interface UniffiForeignFutureCompleteU32 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteU32 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructU32.UniffiByValue)
 }
 
@@ -550,7 +552,7 @@ internal open class UniffiForeignFutureStructI32(
 
 }
 
-internal interface UniffiForeignFutureCompleteI32 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteI32 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructI32.UniffiByValue)
 }
 
@@ -571,7 +573,7 @@ internal open class UniffiForeignFutureStructU64(
 
 }
 
-internal interface UniffiForeignFutureCompleteU64 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteU64 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructU64.UniffiByValue)
 }
 
@@ -592,7 +594,7 @@ internal open class UniffiForeignFutureStructI64(
 
 }
 
-internal interface UniffiForeignFutureCompleteI64 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteI64 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructI64.UniffiByValue)
 }
 
@@ -613,7 +615,7 @@ internal open class UniffiForeignFutureStructF32(
 
 }
 
-internal interface UniffiForeignFutureCompleteF32 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteF32 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructF32.UniffiByValue)
 }
 
@@ -634,7 +636,7 @@ internal open class UniffiForeignFutureStructF64(
 
 }
 
-internal interface UniffiForeignFutureCompleteF64 : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteF64 : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructF64.UniffiByValue)
 }
 
@@ -655,7 +657,7 @@ internal open class UniffiForeignFutureStructPointer(
 
 }
 
-internal interface UniffiForeignFutureCompletePointer : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompletePointer : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructPointer.UniffiByValue)
 }
 
@@ -676,7 +678,7 @@ internal open class UniffiForeignFutureStructRustBuffer(
 
 }
 
-internal interface UniffiForeignFutureCompleteRustBuffer : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteRustBuffer : Callback {
     fun callback(
         `callbackData`: Long,
         `result`: UniffiForeignFutureStructRustBuffer.UniffiByValue,
@@ -697,7 +699,7 @@ internal open class UniffiForeignFutureStructVoid(
 
 }
 
-internal interface UniffiForeignFutureCompleteVoid : com.sun.jna.Callback {
+internal interface UniffiForeignFutureCompleteVoid : Callback {
     fun callback(`callbackData`: Long, `result`: UniffiForeignFutureStructVoid.UniffiByValue)
 }
 
@@ -793,7 +795,7 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rustbuffer_free(
         `buf`: RustBuffer.ByValue, uniffi_out_err: UniffiRustCallStatus,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rustbuffer_reserve(
         `buf`: RustBuffer.ByValue, `additional`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -801,15 +803,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_u8(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_u8(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_u8(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_u8(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -817,15 +819,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_i8(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_i8(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_i8(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_i8(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -833,15 +835,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_u16(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_u16(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_u16(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_u16(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -849,15 +851,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_i16(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_i16(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_i16(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_i16(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -865,15 +867,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_u32(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_u32(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_u32(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_u32(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -881,15 +883,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_i32(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_i32(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_i32(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_i32(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -897,15 +899,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_u64(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_u64(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_u64(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_u64(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -913,15 +915,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_i64(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_i64(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_i64(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_i64(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -929,15 +931,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_f32(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_f32(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_f32(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_f32(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -945,15 +947,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_f64(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_f64(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_f64(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_f64(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -961,15 +963,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_pointer(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_pointer(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_pointer(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_pointer(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -977,15 +979,15 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_rust_buffer(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_rust_buffer(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_rust_buffer(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_rust_buffer(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
@@ -993,19 +995,19 @@ internal interface UniffiLib : Library {
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_poll_void(
         `handle`: Long, `callback`: UniffiRustFutureContinuationCallback, `callbackData`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_cancel_void(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_free_void(
         `handle`: Long,
-    ): Unit
+    )
 
     fun ffi_beautyxt_rs_plain_text_and_markdown_rust_future_complete_void(
         `handle`: Long, uniffi_out_err: UniffiRustCallStatus,
-    ): Unit
+    )
 
 }
 
@@ -1058,8 +1060,35 @@ interface Disposable {
 
     companion object {
         fun destroy(vararg args: Any?) {
-            args.filterIsInstance<Disposable>()
-                .forEach(Disposable::destroy)
+            for (arg in args) {
+                when (arg) {
+                    is Disposable -> arg.destroy()
+                    is ArrayList<*> -> {
+                        for (idx in arg.indices) {
+                            val element = arg[idx]
+                            if (element is Disposable) {
+                                element.destroy()
+                            }
+                        }
+                    }
+
+                    is Map<*, *> -> {
+                        for (element in arg.values) {
+                            if (element is Disposable) {
+                                element.destroy()
+                            }
+                        }
+                    }
+
+                    is Iterable<*> -> {
+                        for (element in arg) {
+                            if (element is Disposable) {
+                                element.destroy()
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
