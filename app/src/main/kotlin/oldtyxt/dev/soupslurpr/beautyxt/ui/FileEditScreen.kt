@@ -235,7 +235,7 @@ fun FileEditScreen(
                                             fileUiState.contentConvertedToHtml.value
                                         } else {
                                             contentConvertedToHtml
-                                        }
+                                        }.replace("#", "%23")
                                     }
                                     </body>
                                 </html>
