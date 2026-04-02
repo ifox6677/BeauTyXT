@@ -52,8 +52,8 @@
     <string name="oldtyxt_open_any_file_type_setting_name" tools:ignore="MissingTranslation">Open Any File Type</string>
     <string name="oldtyxt_open_any_file_type_setting_description" tools:ignore="MissingTranslation">Shows Any file type
         option in the open an existing file dialog.\nWARNING PLEASE READ OR RISK LOSING DATA: Do NOT edit files
-        that have binary content in them or else you will risk corruption! Some examples of such files are pdf\'s,
-        odt\'s, and more.</string>
+        that have non-UTF-8 content in them or else you will risk corruption as they will be reformatted as UTF-8
+        upon editing! Some potential examples of such files are pdf\'s, odt\'s, and more.</string>
     <string name="oldtyxt_plain_text_and_markdown_rust_library_credits" tools:ignore="MissingTranslation">Plain Text and
         Markdown Rust Library Credits</string>
     <string name="oldtyxt_docx" tools:ignore="MissingTranslation">Office Open XML (.docx)</string>
