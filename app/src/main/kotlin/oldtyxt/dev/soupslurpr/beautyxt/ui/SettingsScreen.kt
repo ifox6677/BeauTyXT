@@ -93,27 +93,6 @@ fun SettingsScreen(
         }
 
         Column {
-            SettingsCategoryText(category = stringResource(id = R.string.oldtyxt_typst_project))
-            SettingsItem(
-                name = stringResource(R.string.oldtyxt_typst_project_show_warnings_and_errors_setting_name),
-                description = stringResource(
-                    R.string.oldtyxt_typst_project_show_warnings_and_errors_setting_description,
-                    stringResource(R.string.oldtyxt_typst_project)
-                ),
-                hasSwitch = true,
-                checked = preferencesUiState.typstProjectShowWarningsAndErrors.second.value,
-                onCheckedChange = {
-                    coroutineScope.launch {
-                        preferencesViewModel.setPreference(
-                            preferencesUiState.typstProjectShowWarningsAndErrors
-                                .first, it
-                        )
-                    }
-                }
-            )
-        }
-
-        Column {
             SettingsCategoryText(category = stringResource(id = R.string.oldtyxt_about))
             SettingsItem(
                 name = stringResource(id = R.string.oldtyxt_open_beautyxt_website_setting_name),
@@ -194,21 +173,6 @@ fun SettingsScreen(
                         preferencesViewModel.setPreference(
                             preferencesUiState
                                 .experimentalFeaturePreviewRenderedMarkdownInFullscreen.first, it
-                        )
-                    }
-                }
-            )
-            SettingsItem(
-                name = stringResource(R.string.oldtyxt_fullscreen_typst_preview_button_setting_name),
-                description = stringResource(R.string.oldtyxt_fullscreen_typst_preview_button_setting_description),
-                hasSwitch = true,
-                checked = preferencesUiState.experimentalFeaturePreviewRenderedTypstProjectInFullscreen.second.value,
-                onCheckedChange = {
-                    coroutineScope.launch {
-                        preferencesViewModel.setPreference(
-                            preferencesUiState
-                                .experimentalFeaturePreviewRenderedTypstProjectInFullscreen.first,
-                            it
                         )
                     }
                 }

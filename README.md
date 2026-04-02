@@ -1,6 +1,6 @@
 # BeauTyXT
 
-BeauTyXT is a beautiful, private, secure, and minimalistic Text, Markdown, and Typst editor.\
+BeauTyXT is a beautiful, private, secure, and minimalistic Plain Text and Markdown editor.\
 Now sandboxes all Rust code in separate processes for better protection against exploitation – because that's what
 the cool kids do 😎
 

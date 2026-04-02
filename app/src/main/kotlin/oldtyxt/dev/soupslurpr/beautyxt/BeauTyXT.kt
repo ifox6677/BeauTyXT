@@ -2,14 +2,12 @@ package oldtyxt.dev.soupslurpr.beautyxt
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.CreateDocument
 import androidx.activity.result.contract.ActivityResultContracts.OpenDocument
 import androidx.annotation.StringRes
@@ -38,7 +36,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MoreVert
@@ -75,7 +72,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
@@ -88,7 +84,6 @@ import dev.soupslurpr.beautyxt.R
 import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypeDocx
 import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypeHtml
 import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypeMarkdown
-import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypePdf
 import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypePlainText
 import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesUiState
 import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesViewModel
@@ -100,22 +95,17 @@ import oldtyxt.dev.soupslurpr.beautyxt.ui.PlainTextAndMarkdownRustLibraryCredits
 import oldtyxt.dev.soupslurpr.beautyxt.ui.PrivacyPolicyScreen
 import oldtyxt.dev.soupslurpr.beautyxt.ui.SettingsScreen
 import oldtyxt.dev.soupslurpr.beautyxt.ui.StartupScreen
-import oldtyxt.dev.soupslurpr.beautyxt.ui.TypstProjectScreen
-import oldtyxt.dev.soupslurpr.beautyxt.ui.TypstProjectViewModel
-import oldtyxt.dev.soupslurpr.beautyxt.ui.TypstRustLibraryCreditsScreen
 import java.time.LocalDateTime
 import kotlin.random.Random
 
 enum class BeauTyXTScreens(@StringRes val title: Int) {
     Start(title = R.string.oldtyxt_app_name),
     FileEdit(title = R.string.oldtyxt_file_editor),
-    TypstProject(title = R.string.oldtyxt_typst_project),
     Settings(title = R.string.oldtyxt_settings),
     License(title = R.string.oldtyxt_license),
     PrivacyPolicy(title = R.string.oldtyxt_privacy_policy),
     Credits(title = R.string.oldtyxt_credits),
     PlainTextAndMarkdownRustLibraryCredits(title = R.string.oldtyxt_plain_text_and_markdown_rust_library_credits),
-    TypstRustLibraryCredits(title = R.string.oldtyxt_typst_rust_library_credits),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -173,13 +163,9 @@ fun BeauTyXTAppBar(
     deleteFileDialogConfirmButton: @Composable () -> Unit,
     deleteFileDialogDismissButton: @Composable () -> Unit,
 
-    onTypstProjectOpenAnotherFileInTheProjectButtonClicked: () -> Unit,
-    onTypstProjectCreateAndOpenAnotherFileInTheProjectButtonClicked: () -> Unit,
-
     readOnly: Boolean,
     mimeType: String,
     onPreviewMarkdownRenderedToFullscreenButtonClicked: () -> Unit,
-    onPreviewTypstProjectRenderedToFullscreenButtonClicked: () -> Unit,
     modifier: Modifier
 ) {
     val dropDownMenuItemTextStyle = typography.bodyLarge
@@ -200,12 +186,7 @@ fun BeauTyXTAppBar(
             }
         },
         actions = {
-            val isCurrentScreenTypstProject = currentScreen==BeauTyXTScreens.TypstProject
-            if (currentScreen==BeauTyXTScreens.FileEdit || isCurrentScreenTypstProject) {
-                // Read only checking not implemented yet for Typst projects
-                if (!isCurrentScreenTypstProject && readOnly) {
-                    Text(text = stringResource(R.string.oldtyxt_read_only))
-                }
+            if (currentScreen == BeauTyXTScreens.FileEdit) {
                 if (mimeType==mimeTypeMarkdown) {
                     if (preferencesUiState.experimentalFeaturePreviewRenderedMarkdownInFullscreen.second.value) {
                         IconButton(
@@ -218,37 +199,6 @@ fun BeauTyXTAppBar(
                             }
                         )
                     }
-                }
-                if (isCurrentScreenTypstProject) {
-                    if (preferencesUiState.experimentalFeaturePreviewRenderedTypstProjectInFullscreen.second.value) {
-                        IconButton(
-                            onClick = onPreviewTypstProjectRenderedToFullscreenButtonClicked,
-                            content = {
-                                Icon(
-                                    painter = painterResource(R.drawable.baseline_preview_24),
-                                    contentDescription = stringResource(R.string.oldtyxt_toggle_previewing_typst_project_in_fullscreen)
-                                )
-                            }
-                        )
-                    }
-                    IconButton(
-                        onClick = onTypstProjectCreateAndOpenAnotherFileInTheProjectButtonClicked,
-                        content = {
-                            Icon(
-                                imageVector = Icons.Filled.Add,
-                                contentDescription = stringResource(R.string.oldtyxt_create_and_edit_another_file_in_the_typst_project)
-                            )
-                        }
-                    )
-                    IconButton(
-                        onClick = onTypstProjectOpenAnotherFileInTheProjectButtonClicked,
-                        content = {
-                            Icon(
-                                painter = painterResource(R.drawable.baseline_file_open_24),
-                                contentDescription = stringResource(R.string.oldtyxt_edit_another_file_in_the_typst_project),
-                            )
-                        }
-                    )
                 }
                 IconButton(
                     onClick = onDropDownMenuButtonClicked,
@@ -275,7 +225,6 @@ fun BeauTyXTAppBar(
                         leadingIcon = {
                             Icon(imageVector = Icons.Filled.Info, contentDescription = null)
                         },
-                        enabled = !isCurrentScreenTypstProject
                     )
                     DropdownMenuItem(
                         text = {
@@ -303,11 +252,7 @@ fun BeauTyXTAppBar(
                         leadingIcon = {
                             Icon(imageVector = Icons.Filled.Delete, contentDescription = null)
                         },
-                        enabled = if (isCurrentScreenTypstProject) {
-                            false
-                        } else {
-                            !readOnly
-                        },
+                        enabled = !readOnly,
                     )
                     DropdownMenuItem(
                         text = {
@@ -341,7 +286,6 @@ fun BeauTyXTAppBar(
                                 contentDescription = null
                             )
                         },
-                        enabled = !isCurrentScreenTypstProject,
                     )
                     DropdownMenuItem(
                         text = {
@@ -369,7 +313,6 @@ fun BeauTyXTAppBar(
                         leadingIcon = {
                             Icon(imageVector = Icons.Filled.Share, contentDescription = null)
                         },
-                        enabled = !isCurrentScreenTypstProject,
                     )
                     DropdownMenuItem(
                         text = {
@@ -382,7 +325,6 @@ fun BeauTyXTAppBar(
                         leadingIcon = {
                             Icon(imageVector = Icons.Filled.Share, contentDescription = null)
                         },
-                        enabled = !isCurrentScreenTypstProject,
                     )
                 }
                 if (fileInfoShown) {
@@ -515,7 +457,6 @@ fun FileTypeSelectionDialogItem(
 fun BeauTyXTApp(
     modifier: Modifier,
     fileViewModel: FileViewModel,
-    typstProjectViewModel: TypstProjectViewModel,
     preferencesViewModel: PreferencesViewModel,
     isActionViewOrEdit: Boolean,
     isActionSend: Boolean,
@@ -528,13 +469,9 @@ fun BeauTyXTApp(
         backStackEntry?.destination?.route ?: BeauTyXTScreens.Start.name
     )
 
-    val isCurrentScreenTypstProject = currentScreen==BeauTyXTScreens.TypstProject
-
     val context = LocalContext.current
 
     val fileUiState by fileViewModel.uiState.collectAsState()
-
-    val typstProjectUiState by typstProjectViewModel.uiState.collectAsState()
 
     val preferencesUiState by preferencesViewModel.uiState.collectAsState()
 
@@ -581,26 +518,6 @@ fun BeauTyXTApp(
             }
         }
 
-    val openTypstProjectLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts
-            .OpenDocumentTree()
-    ) { projectFolderUri ->
-        if (projectFolderUri!=null) {
-            typstProjectViewModel.bindService(projectFolderUri)
-            navController.navigate(BeauTyXTScreens.TypstProject.name)
-        }
-    }
-
-    val createTypstProjectLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts
-            .OpenDocumentTree()
-    ) { projectFolderUri ->
-        if (projectFolderUri!=null) {
-            typstProjectViewModel.bindService(projectFolderUri)
-            navController.navigate(BeauTyXTScreens.TypstProject.name)
-        }
-    }
-
     var fileInfoDialogShown by rememberSaveable { mutableStateOf(false) }
 
     var dropDownMenuShown by rememberSaveable { mutableStateOf(false) }
@@ -628,48 +545,6 @@ fun BeauTyXTApp(
                 fileViewModel.exportAsDocx(it, context)
             }
         }
-
-    val exportTypstProjectAsPdfFileLauncher = rememberLauncherForActivityResult(
-        contract = CreateDocument(
-            mimeTypePdf
-        )
-    ) {
-        if (it!=null) {
-            typstProjectViewModel.exportDocumentToPdf(it, context)
-        }
-    }
-
-    val setTypstCurrentOpenedPathLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts
-            .OpenDocument
-                ()
-    ) {
-        if (it!=null) {
-            typstProjectViewModel.refreshProjectFiles(context)
-            typstProjectViewModel.setCurrentOpenedPath(it, context.contentResolver)
-            typstProjectViewModel.setTypstProjectFileText(
-                typstProjectUiState.currentOpenedPath.value
-            )
-        }
-    }
-
-    val createNewTypstProjectFileAndSetCurrentOpenedPathLauncher =
-        rememberLauncherForActivityResult(
-            contract =
-            // .typ files don't have an official MIME type as far as I know as of 11/5/2023
-            CreateDocument("typst/application")
-        ) {
-            if (it!=null) {
-                typstProjectViewModel.refreshProjectFiles(context)
-                typstProjectViewModel.setCurrentOpenedPath(it, context.contentResolver)
-                typstProjectViewModel.refreshProjectFiles(context)
-                typstProjectViewModel.setTypstProjectFileText(
-                    typstProjectUiState.currentOpenedPath.value
-                )
-            }
-        }
-
-    var previewTypstProjectRenderedToFullscreen by rememberSaveable { mutableStateOf(false) }
 
     val randomValue = Random.nextInt(0, 11)
     val splashMessage = rememberSaveable {
@@ -1047,23 +922,13 @@ ${
                             )
                         }
                         if ((preferencesUiState.experimentalFeatureExportMarkdownToDocx.second.value and
-                                    (fileUiState.mimeType.value==mimeTypeMarkdown)) or
-                            (fileUiState.mimeType.value!=mimeTypeMarkdown && !isCurrentScreenTypstProject)
+                                    (fileUiState.mimeType.value == mimeTypeMarkdown)) or (fileUiState.mimeType.value != mimeTypeMarkdown)
                         ) {
                             FileTypeSelectionDialogItem(
                                 fileTypeText = stringResource(R.string.oldtyxt_docx),
                                 selected = exportAsSelectedFileType==mimeTypeDocx,
                                 onClickRadioButton = {
                                     exportAsSelectedFileType = mimeTypeDocx
-                                }
-                            )
-                        }
-                        if (isCurrentScreenTypstProject) {
-                            FileTypeSelectionDialogItem(
-                                fileTypeText = stringResource(R.string.oldtyxt_pdf),
-                                selected = exportAsSelectedFileType==mimeTypePdf,
-                                onClickRadioButton = {
-                                    exportAsSelectedFileType = mimeTypePdf
                                 }
                             )
                         }
@@ -1079,14 +944,6 @@ ${
 
                                 mimeTypeDocx -> exportAsDocxFileLauncher.launch(
                                     fileUiState.name.value.substringBeforeLast(".")
-                                )
-
-                                mimeTypePdf -> exportTypstProjectAsPdfFileLauncher.launch(
-                                    if (isCurrentScreenTypstProject) {
-                                        "main.pdf"
-                                    } else {
-                                        fileUiState.name.value.substringBeforeLast(".")
-                                    }
                                 )
                             }
                             exportAsDialogShown = false
@@ -1172,15 +1029,7 @@ ${
                             .fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
-                        if (isCurrentScreenTypstProject) {
-                            FileTypeSelectionDialogItem(
-                                fileTypeText = stringResource(R.string.oldtyxt_pdf),
-                                selected = shareAsSelectedFileType==mimeTypePdf,
-                                onClickRadioButton = {
-                                    shareAsSelectedFileType = mimeTypePdf
-                                }
-                            )
-                        } else when (fileUiState.mimeType.value) {
+                        when (fileUiState.mimeType.value) {
                             mimeTypePlainText -> {
                                 FileTypeSelectionDialogItem(
                                     fileTypeText = stringResource(R.string.oldtyxt_txt),
@@ -1319,24 +1168,12 @@ ${
                     )
                 },
 
-                onTypstProjectOpenAnotherFileInTheProjectButtonClicked = {
-                    setTypstCurrentOpenedPathLauncher.launch(arrayOf("*/*"))
-                },
-                onTypstProjectCreateAndOpenAnotherFileInTheProjectButtonClicked = {
-                    createNewTypstProjectFileAndSetCurrentOpenedPathLauncher.launch("enter-a-file-name.typ")
-                },
-
                 readOnly = fileUiState.readOnly.value,
 
                 mimeType = fileUiState.mimeType.value,
 
                 onPreviewMarkdownRenderedToFullscreenButtonClicked = {
                     previewMarkdownRenderedToFullscreen = !previewMarkdownRenderedToFullscreen
-                },
-
-                onPreviewTypstProjectRenderedToFullscreenButtonClicked = {
-                    previewTypstProjectRenderedToFullscreen =
-                        !previewTypstProjectRenderedToFullscreen
                 },
 
                 modifier = modifier
@@ -1376,9 +1213,6 @@ ${
                             ActivityOptionsCompat.makeBasic(),
                         )
                     },
-                    onOpenTypstProjectButtonClicked = {
-                        openTypstProjectLauncher.launch(Uri.EMPTY)
-                    },
                     onOpenAnyButtonClicked = {
                         openFileLauncher.launch(
                             arrayOf("*/*"),
@@ -1401,15 +1235,11 @@ ${
                             ActivityOptionsCompat.makeBasic()
                         )
                     },
-                    onCreateTypstProjectButtonClicked = {
-                        createTypstProjectLauncher.launch(Uri.EMPTY)
-                    },
                     onSettingsButtonClicked = {
                         navController.navigate(BeauTyXTScreens.Settings.name)
                     },
                     fileViewModel = fileViewModel,
                     preferencesUiState = preferencesUiState,
-                    typstProjectViewModel = typstProjectViewModel,
                 )
             }
             composableWithDefaultSlideTransitions(route = BeauTyXTScreens.FileEdit) {
@@ -1441,14 +1271,6 @@ ${
                     navigateUp = { navController.navigateUp() }
                 )
             }
-            composableWithDefaultSlideTransitions(route = BeauTyXTScreens.TypstProject) {
-                TypstProjectScreen(
-                    typstProjectViewModel = typstProjectViewModel,
-                    preferencesUiState = preferencesUiState,
-                    navigateUp = { navController.navigateUp() },
-                    previewTypstProjectRenderedToFullscreen = previewTypstProjectRenderedToFullscreen
-                )
-            }
             composableWithDefaultSlideTransitions(route = BeauTyXTScreens.Settings) {
                 SettingsScreen(
                     onLicenseIconButtonClicked = {
@@ -1474,16 +1296,10 @@ ${
                     onPlainTextAndMarkdownRustLibraryCreditsButtonClicked = {
                         navController.navigate(BeauTyXTScreens.PlainTextAndMarkdownRustLibraryCredits.name)
                     },
-                    onTypstRustLibraryCreditsButtonClicked = {
-                        navController.navigate(BeauTyXTScreens.TypstRustLibraryCredits.name)
-                    }
                 )
             }
             composableWithDefaultSlideTransitions(route = BeauTyXTScreens.PlainTextAndMarkdownRustLibraryCredits) {
                 PlainTextAndMarkdownRustLibraryCreditsScreen()
-            }
-            composableWithDefaultSlideTransitions(route = BeauTyXTScreens.TypstRustLibraryCredits) {
-                TypstRustLibraryCreditsScreen()
             }
         }
     }

@@ -51,15 +51,12 @@ fun StartupScreen(
     splashMessage: String,
     onOpenTxtButtonClicked: () -> Unit,
     onOpenMdButtonClicked: () -> Unit,
-    onOpenTypstProjectButtonClicked: () -> Unit,
     onOpenAnyButtonClicked: () -> Unit,
     onCreateTxtButtonClicked: () -> Unit,
     onCreateMdButtonClicked: () -> Unit,
-    onCreateTypstProjectButtonClicked: () -> Unit,
     onSettingsButtonClicked: () -> Unit,
     fileViewModel: FileViewModel,
     preferencesUiState: PreferencesUiState,
-    typstProjectViewModel: TypstProjectViewModel,
 ) {
     var isOpenFileTypeAlertDialogShown by remember { mutableStateOf(false) }
     var isCreateFileTypeAlertDialogShown by remember { mutableStateOf(false) }
@@ -68,9 +65,6 @@ fun StartupScreen(
     LaunchedEffect(key1 = Unit) {
         if (fileViewModel.rustService != null) {
             fileViewModel.clearUiState()
-        }
-        if (typstProjectViewModel.rustService != null) {
-            typstProjectViewModel.clearUiState()
         }
     }
 
@@ -132,15 +126,6 @@ fun StartupScreen(
                 ) {
                     Text(text = stringResource(R.string.oldtyxt_md))
                 }
-                FilledTonalButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        onOpenTypstProjectButtonClicked()
-                        isOpenFileTypeAlertDialogShown = false
-                    }
-                ) {
-                    Text(text = stringResource(R.string.oldtyxt_typst_project))
-                }
                 if (preferencesUiState.experimentalFeatureOpenAnyFileType.second.value) {
                     FilledTonalButton(
                         modifier = Modifier.fillMaxWidth(),
@@ -189,20 +174,6 @@ fun StartupScreen(
                     },
                 ) {
                     Text(text = stringResource(R.string.oldtyxt_md))
-                }
-                FilledTonalButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        isCreateFileTypeAlertDialogShown = false
-                        onCreateTypstProjectButtonClicked()
-                    },
-                ) {
-                    Text(
-                        text = stringResource(
-                            R.string.oldtyxt_create_typst_project,
-                            stringResource(R.string.oldtyxt_typst_project)
-                        )
-                    )
                 }
             }
         }

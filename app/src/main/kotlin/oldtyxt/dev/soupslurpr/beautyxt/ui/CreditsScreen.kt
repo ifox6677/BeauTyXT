@@ -231,7 +231,6 @@ const val APACHE2LICENSE = "\n" +
 @Composable
 fun CreditsScreen(
     onPlainTextAndMarkdownRustLibraryCreditsButtonClicked: () -> Unit,
-    onTypstRustLibraryCreditsButtonClicked: () -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -1156,18 +1155,6 @@ fun CreditsScreen(
                 dependencyName = "Material Symbols",
                 dependencyPackageName = "",
                 dependencyLicense = APACHE2LICENSE,
-            )
-        }
-        item {
-            Button(
-                onClick = { onPlainTextAndMarkdownRustLibraryCreditsButtonClicked() },
-                content = { Text(stringResource(R.string.oldtyxt_view_credits_for_rust_library_for_plain_text_and_markdown_support)) }
-            )
-        }
-        item {
-            Button(
-                onClick = { onTypstRustLibraryCreditsButtonClicked() },
-                content = { Text(stringResource(R.string.oldtyxt_view_credits_for_rust_library_for_typst_support)) }
             )
         }
 

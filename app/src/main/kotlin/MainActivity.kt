@@ -62,9 +62,6 @@ class MainActivity : ComponentActivity() {
                     val fileViewModel: oldtyxt.dev.soupslurpr.beautyxt.ui.FileViewModel =
                         viewModel()
 
-                    val typstProjectViewModel: oldtyxt.dev.soupslurpr.beautyxt.ui
-                    .TypstProjectViewModel = viewModel()
-
                     val isActionViewOrEdit = (intent.action==Intent.ACTION_VIEW) or
                             (intent.action==Intent.ACTION_EDIT)
 
@@ -129,7 +126,6 @@ class MainActivity : ComponentActivity() {
                             oldtyxt.dev.soupslurpr.beautyxt.BeauTyXTApp(
                                 modifier = Modifier,
                                 fileViewModel = fileViewModel,
-                                typstProjectViewModel = typstProjectViewModel,
                                 preferencesViewModel = oldtyxtPreferencesViewModel,
                                 isActionViewOrEdit = isActionViewOrEdit,
                                 isActionSend = isActionSend,

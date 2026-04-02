@@ -78,20 +78,7 @@
         this?\nDeleted files are irrecoverable (gone forever!)</string>
     <string name="oldtyxt_share" tools:ignore="MissingTranslation">Share</string>
     <string name="oldtyxt_share_as" tools:ignore="MissingTranslation">Share As</string>
-    <string name="oldtyxt_typst_project" tools:ignore="MissingTranslation">Typst project</string>
     <string name="oldtyxt_open" tools:ignore="MissingTranslation">Open</string>
     <string name="oldtyxt_create" tools:ignore="MissingTranslation">Create</string>
-    <string name="oldtyxt_create_typst_project" tools:ignore="MissingTranslation">%1$s (Create a new folder from the menu and give access to it)</string>
     <string name="oldtyxt_pdf" tools:ignore="MissingTranslation">PDF (.pdf)</string>
-    <string name="oldtyxt_edit_another_file_in_the_typst_project" tools:ignore="MissingTranslation">Edit another file in the Typst project</string>
-    <string name="oldtyxt_create_and_edit_another_file_in_the_typst_project" tools:ignore="MissingTranslation">Create and edit another file in the Typst project</string>
-    <string name="oldtyxt_typst_project_show_warnings_and_errors_setting_name" tools:ignore="MissingTranslation">Show warnings and errors</string>
-    <string name="oldtyxt_typst_project_show_warnings_and_errors_setting_description" tools:ignore="MissingTranslation">Show warnings and errors below the %1$s preview</string>
-    <string name="oldtyxt_rendered_typst_project_preview" tools:ignore="MissingTranslation">Rendered Typst project preview</string>
-    <string name="oldtyxt_toggle_previewing_typst_project_in_fullscreen" tools:ignore="MissingTranslation">Toggle previewing Typst project in fullscreen</string>
-    <string name="oldtyxt_fullscreen_typst_preview_button_setting_name" tools:ignore="MissingTranslation">Fullscreen Typst Preview Button</string>
-    <string name="oldtyxt_fullscreen_typst_preview_button_setting_description" tools:ignore="MissingTranslation">Shows a button when a Typst project is open which will toggle a fullscreen preview of the rendered Typst project.\nExperimental because it has a few issues.</string>
-    <string name="oldtyxt_view_credits_for_rust_library_for_plain_text_and_markdown_support" tools:ignore="MissingTranslation">View Credits for Rust library for Plain Text and Markdown support</string>
-    <string name="oldtyxt_view_credits_for_rust_library_for_typst_support" tools:ignore="MissingTranslation">View Credits for Rust library for Typst support</string>
-    <string name="oldtyxt_typst_rust_library_credits">Typst Rust Library Credits</string>
 </resources>

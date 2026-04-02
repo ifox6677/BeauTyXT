@@ -67,27 +67,12 @@ class PreferencesViewModel(private val dataStore: DataStore<Preferences>) : View
                                     .second.value
                         )
                     ),
-                    typstProjectShowWarningsAndErrors = Pair(
-                        uiState.value.typstProjectShowWarningsAndErrors.first,
-                        mutableStateOf(
-                            settings[uiState.value.typstProjectShowWarningsAndErrors.first]
-                                ?: uiState.value
-                                    .typstProjectShowWarningsAndErrors.second.value
-                        )
-                    ),
                     experimentalFeaturePreviewRenderedMarkdownInFullscreen = Pair(
                         uiState.value.experimentalFeaturePreviewRenderedMarkdownInFullscreen.first,
                         mutableStateOf(
                             settings[uiState.value.experimentalFeaturePreviewRenderedMarkdownInFullscreen
                                 .first]
                                 ?: uiState.value.experimentalFeaturePreviewRenderedMarkdownInFullscreen.second.value
-                        )
-                    ),
-                    experimentalFeaturePreviewRenderedTypstProjectInFullscreen = Pair(
-                        uiState.value.experimentalFeaturePreviewRenderedTypstProjectInFullscreen.first,
-                        mutableStateOf(
-                            settings[uiState.value.experimentalFeaturePreviewRenderedTypstProjectInFullscreen.first]
-                                ?: uiState.value.experimentalFeaturePreviewRenderedTypstProjectInFullscreen.second.value
                         )
                     ),
                     experimentalFeatureOpenAnyFileType = Pair(
