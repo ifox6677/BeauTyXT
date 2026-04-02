@@ -12,9 +12,6 @@
     <string name="oldtyxt_privacy_policy">Privacy policy</string>
     <string name="oldtyxt_license_setting_name">BeauTyXT\'s License</string>
     <string name="oldtyxt_license_setting_description">View BeauTyXT\'s License in app</string>
-    <string name="oldtyxt_credits">Credits</string>
-    <string name="oldtyxt_credits_setting_name">Credits</string>
-    <string name="oldtyxt_credits_setting_description">View open source licenses of code that BeauTyXT uses in app</string>
     <string name="oldtyxt_any">Any</string>
     <string name="oldtyxt_txt">Plain Text (.txt &amp; .text)</string>
     <string name="oldtyxt_pitch_black_background_setting_name">Pitch black background</string>
@@ -54,8 +51,6 @@
         option in the open an existing file dialog.\nWARNING PLEASE READ OR RISK LOSING DATA: Do NOT edit files
         that have non-UTF-8 content in them or else you will risk corruption as they will be reformatted as UTF-8
         upon editing! Some potential examples of such files are pdf\'s, odt\'s, and more.</string>
-    <string name="oldtyxt_plain_text_and_markdown_rust_library_credits" tools:ignore="MissingTranslation">Plain Text and
-        Markdown Rust Library Credits</string>
     <string name="oldtyxt_docx" tools:ignore="MissingTranslation">Office Open XML (.docx)</string>
     <string name="oldtyxt_export_markdown_to_docx_setting_name" tools:ignore="MissingTranslation">Export %1$s to %2$s</string>
     <string name="oldtyxt_export_markdown_to_docx_setting_description" tools:ignore="MissingTranslation">Adds an export

@@ -41,7 +41,6 @@ import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesViewModel
 fun SettingsScreen(
     onLicenseIconButtonClicked: () -> Unit,
     onPrivacyPolicyIconButtonClicked: () -> Unit,
-    onCreditsIconButtonClicked: () -> Unit,
     preferencesViewModel: PreferencesViewModel,
 ) {
     val localUriHandler = LocalUriHandler.current
@@ -143,18 +142,6 @@ fun SettingsScreen(
                     Icon(
                         imageVector = Icons.Filled.Info,
                         contentDescription = null,
-                    )
-                }
-            )
-            SettingsItem(
-                name = stringResource(id = R.string.oldtyxt_credits_setting_name),
-                description = stringResource(id = R.string.oldtyxt_credits_setting_description),
-                hasIcon = true,
-                onClickIconSetting = { onCreditsIconButtonClicked() },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Filled.Info,
-                        contentDescription = null
                     )
                 }
             )

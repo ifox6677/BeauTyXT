@@ -87,7 +87,6 @@ import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypeMarkdown
 import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypePlainText
 import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesUiState
 import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesViewModel
-import oldtyxt.dev.soupslurpr.beautyxt.ui.CreditsScreen
 import oldtyxt.dev.soupslurpr.beautyxt.ui.FileEditScreen
 import oldtyxt.dev.soupslurpr.beautyxt.ui.FileViewModel
 import oldtyxt.dev.soupslurpr.beautyxt.ui.LicenseScreen
@@ -104,8 +103,6 @@ enum class BeauTyXTScreens(@StringRes val title: Int) {
     Settings(title = R.string.oldtyxt_settings),
     License(title = R.string.oldtyxt_license),
     PrivacyPolicy(title = R.string.oldtyxt_privacy_policy),
-    Credits(title = R.string.oldtyxt_credits),
-    PlainTextAndMarkdownRustLibraryCredits(title = R.string.oldtyxt_plain_text_and_markdown_rust_library_credits),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -1279,9 +1276,6 @@ ${
                     onPrivacyPolicyIconButtonClicked = {
                         navController.navigate(BeauTyXTScreens.PrivacyPolicy.name)
                     },
-                    onCreditsIconButtonClicked = {
-                        navController.navigate(BeauTyXTScreens.Credits.name)
-                    },
                     preferencesViewModel = preferencesViewModel,
                 )
             }
@@ -1290,16 +1284,6 @@ ${
             }
             composableWithDefaultSlideTransitions(route = BeauTyXTScreens.PrivacyPolicy) {
                 PrivacyPolicyScreen()
-            }
-            composableWithDefaultSlideTransitions(route = BeauTyXTScreens.Credits) {
-                CreditsScreen(
-                    onPlainTextAndMarkdownRustLibraryCreditsButtonClicked = {
-                        navController.navigate(BeauTyXTScreens.PlainTextAndMarkdownRustLibraryCredits.name)
-                    },
-                )
-            }
-            composableWithDefaultSlideTransitions(route = BeauTyXTScreens.PlainTextAndMarkdownRustLibraryCredits) {
-                PlainTextAndMarkdownRustLibraryCreditsScreen()
             }
         }
     }
