@@ -15,7 +15,7 @@ kotlin = "2.3.20"
 kotlinxSerializationJson = "1.10.0"
 ksp = "2.3.6"
 lifecycleRuntimeKtx = "2.10.0"
-navigationCompose = "2.9.3"
+navigationCompose = "2.9.7"
 pagingCompose = "3.3.6"
 
 [libraries]
