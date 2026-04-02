@@ -93,7 +93,6 @@ import oldtyxt.dev.soupslurpr.beautyxt.constants.mimeTypePlainText
 import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesUiState
 import oldtyxt.dev.soupslurpr.beautyxt.settings.PreferencesViewModel
 import oldtyxt.dev.soupslurpr.beautyxt.ui.CreditsScreen
-import oldtyxt.dev.soupslurpr.beautyxt.ui.DonationScreen
 import oldtyxt.dev.soupslurpr.beautyxt.ui.FileEditScreen
 import oldtyxt.dev.soupslurpr.beautyxt.ui.FileViewModel
 import oldtyxt.dev.soupslurpr.beautyxt.ui.LicenseScreen
@@ -117,7 +116,6 @@ enum class BeauTyXTScreens(@StringRes val title: Int) {
     Credits(title = R.string.oldtyxt_credits),
     PlainTextAndMarkdownRustLibraryCredits(title = R.string.oldtyxt_plain_text_and_markdown_rust_library_credits),
     TypstRustLibraryCredits(title = R.string.oldtyxt_typst_rust_library_credits),
-    Donation(title = R.string.oldtyxt_donation),
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -1463,9 +1461,6 @@ ${
                         navController.navigate(BeauTyXTScreens.Credits.name)
                     },
                     preferencesViewModel = preferencesViewModel,
-                    onDonationSettingsItemClicked = {
-                        navController.navigate(BeauTyXTScreens.Donation.name)
-                    }
                 )
             }
             composableWithDefaultSlideTransitions(route = BeauTyXTScreens.License) {
@@ -1489,9 +1484,6 @@ ${
             }
             composableWithDefaultSlideTransitions(route = BeauTyXTScreens.TypstRustLibraryCredits) {
                 TypstRustLibraryCreditsScreen()
-            }
-            composableWithDefaultSlideTransitions(route = BeauTyXTScreens.Donation) {
-                DonationScreen()
             }
         }
     }

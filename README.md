@@ -12,7 +12,3 @@ Check out the official website at https://beautyxt.app/ for more info and downlo
 
 Check [CONTRIBUTING.md](./CONTRIBUTING.md) for things to know
 if you want to contribute. Also points to build instructions.
-
-## Donation
-
-Thank you to everyone who donated.
