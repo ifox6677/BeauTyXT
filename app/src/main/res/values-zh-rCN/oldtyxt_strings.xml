@@ -1,0 +1,75 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="oldtyxt_app_name">极简编辑器</string>
+    <string name="oldtyxt_settings">设置</string>
+    <string name="oldtyxt_back_button">返回</string>
+    <string name="oldtyxt_welcome">欢迎使用极简编辑器！</string>
+    <string name="oldtyxt_file_editor">文件编辑器</string>
+    <string name="oldtyxt_view_source_code_setting_name">源代码</string>
+    <string name="oldtyxt_view_source_code_setting_description">在浏览器中查看极简编辑器的 GitHub 源代码</string>
+    <string name="oldtyxt_privacy_policy_setting_name">隐私政策</string>
+    <string name="oldtyxt_privacy_policy_setting_description">在应用内查看隐私政策</string>
+    <string name="oldtyxt_license">许可证</string>
+    <string name="oldtyxt_privacy_policy">隐私政策</string>
+    <string name="oldtyxt_license_setting_name">极简编辑器许可证</string>
+    <string name="oldtyxt_license_setting_description">在应用内查看极简编辑器的许可证</string>
+    <string name="oldtyxt_any">任意</string>
+    <string name="oldtyxt_txt">纯文本（.txt &amp; .text）</string>
+    <string name="oldtyxt_pitch_black_background_setting_name">纯黑背景</string>
+    <string name="oldtyxt_pitch_black_background_setting_description">开启深色主题时使用纯黑背景</string>
+    <string name="oldtyxt_about">关于</string>
+    <string name="oldtyxt_theme">主题</string>
+    <string name="oldtyxt_file_info">文件信息</string>
+    <string name="oldtyxt_name">名称</string>
+    <string name="oldtyxt_size">大小</string>
+    <string name="oldtyxt_mime_type">MIME 类型</string>
+    <string name="oldtyxt_bytes">字节</string>
+    <string name="oldtyxt_open_beautyxt_website_setting_name">极简编辑器网站</string>
+    <string name="oldtyxt_open_beautyxt_website_setting_description">在浏览器中打开极简编辑器网站</string>
+    <string name="oldtyxt_review_privacy_policy_and_license" translatable="false">查看极简编辑器的隐私政策和许可证（向下滚动）</string>
+    <string name="oldtyxt_full_privacy_policy" translatable="false">极简编辑器隐私政策\n\n本应用不使用任何敏感权限，不建立任何网络连接，除首选项外不在自身存储任何数据。本应用使用 Android 存储访问框架 (SAF) 与您选择访问的文件进行交互，这些文件可以存储和导出到您选择的各个位置。您需自行负责选择存储和导出文件的位置。本应用不会出于上述目的之外访问、收集或传输这些位置的数据。\n\n极简编辑器的隐私政策可能会不时更新。\n\n最后更新：2023年7月15日。</string>
+    <string name="oldtyxt_full_license" translatable="false">ISC 许可证\n\n版权所有 (c) 2023-2026 soupslurpr\n\n特此免费授予任何人在遵守本版权声明和许可声明的前提下，以任何目的使用、复制、修改和/或分发本软件（无论是否收费）的许可。\n\n本软件按"原样"提供，作者对于本软件引起的任何直接、间接、附带、特殊、惩罚性或后果性损害（包括但不限于替代商品或服务的采购、使用、数据或利润损失或业务中断）概不负责，无论是在合同行为、严格责任还是侵权行为（包括疏忽或其他方式）中产生，即使已被告知此类损害的可能性。</string>
+    <string name="oldtyxt_privacy_policy_and_license_checkbox_text" translatable="false">勾选此复选框并继续，即表示您同意以上所示的极简编辑器隐私政策和许可证。</string>
+    <string name="oldtyxt_continue_to_app" translatable="false">继续</string>
+    <string name="oldtyxt_options_dropdown_menu" tools:ignore="MissingTranslation">选项下拉菜单</string>
+    <string name="oldtyxt_render_markdown_setting_name" tools:ignore="MissingTranslation">渲染 Markdown</string>
+    <string name="oldtyxt_render_markdown_setting_description" tools:ignore="MissingTranslation">在屏幕下方渲染 %1$s 文件</string>
+    <string name="oldtyxt_md" tools:ignore="MissingTranslation">Markdown（.md &amp; .markdown）</string>
+    <string name="oldtyxt_export" tools:ignore="MissingTranslation">导出</string>
+    <string name="oldtyxt_export_as" tools:ignore="MissingTranslation">导出为</string>
+    <string name="oldtyxt_cancel" tools:ignore="MissingTranslation">取消</string>
+    <string name="oldtyxt_confirm_" tools:ignore="MissingTranslation">确认</string>
+    <string name="oldtyxt_html" tools:ignore="MissingTranslation">HTML (.html)</string>
+    <string name="oldtyxt_read_only" tools:ignore="MissingTranslation">只读</string>
+    <string name="oldtyxt_rendered_markdown" tools:ignore="MissingTranslation">渲染后的 Markdown</string>
+    <string name="oldtyxt_preview_markdown_rendered_to_html" tools:ignore="MissingTranslation">预览 Markdown 渲染为 HTML 的结果</string>
+    <string name="oldtyxt_experimental_features" tools:ignore="MissingTranslation">实验性功能</string>
+    <string name="oldtyxt_fullscreen_markdown_render_preview_setting_name" tools:ignore="MissingTranslation">全屏
+        Markdown 预览按钮</string>
+    <string name="oldtyxt_fullscreen_markdown_render_preview_setting_description" tools:ignore="MissingTranslation">打开 Markdown 文件时显示一个按钮，可切换全屏查看渲染后的 Markdown 预览。\n实验性功能，存在一些问题。</string>
+    <string name="oldtyxt_open_any_file_type_setting_name" tools:ignore="MissingTranslation">打开任意文件类型</string>
+    <string name="oldtyxt_open_any_file_type_setting_description" tools:ignore="MissingTranslation">在打开现有文件的对话框中显示任意文件类型选项。
+\n警告请仔细阅读否则有丢失数据的风险：不要编辑包含非 UTF-8 内容的文件，否则有损坏风险，因为它们在编辑时会被重新格式化为 UTF-8！一些可能的例子是 PDF、ODT 等文件。</string>
+    <string name="oldtyxt_docx" tools:ignore="MissingTranslation">Office Open XML (.docx)</string>
+    <string name="oldtyxt_export_markdown_to_docx_setting_name" tools:ignore="MissingTranslation">将 %1$s 导出为 %2$s</string>
+    <string name="oldtyxt_export_markdown_to_docx_setting_description" tools:ignore="MissingTranslation">为
+%1$s 文件添加导出为 %2$s 的选项。\n并非所有 Markdown 都支持转换，当尝试使用不支持的功能导出 %1$s 文件时，极简编辑器会崩溃。\n目前仅支持标题、换行、强调、加粗和使用 &lt;div style="text-align:
+center"&gt;文本&lt;/div&gt;（居中、左对齐、右对齐）的对齐方式。</string>
+    <string name="oldtyxt_print" tools:ignore="MissingTranslation">打印</string>
+    <string name="oldtyxt_words" tools:ignore="MissingTranslation">字数</string>
+    <string name="oldtyxt_characters" tools:ignore="MissingTranslation">字符数</string>
+    <string name="oldtyxt_print_options" tools:ignore="MissingTranslation">打印选项</string>
+    <string name="oldtyxt_left_margin" tools:ignore="MissingTranslation">左边距</string>
+    <string name="oldtyxt_invalid_size" tools:ignore="MissingTranslation">无效尺寸</string>
+    <string name="oldtyxt_inches" tools:ignore="MissingTranslation">英寸</string>
+    <string name="oldtyxt_right_margin" tools:ignore="MissingTranslation">右边距</string>
+    <string name="oldtyxt_top_margin" tools:ignore="MissingTranslation">上边距</string>
+    <string name="oldtyxt_bottom_margin" tools:ignore="MissingTranslation">下边距</string>
+    <string name="oldtyxt_delete_file" tools:ignore="MissingTranslation">删除文件</string>
+    <string name="oldtyxt_delete_file_dialog_text" tools:ignore="MissingTranslation">您确定要这样做吗？
+\n删除的文件无法恢复（永久消失！）</string>
+    <string name="oldtyxt_share" tools:ignore="MissingTranslation">分享</string>
+    <string name="oldtyxt_share_as" tools:ignore="MissingTranslation">分享为</string>
+    <string name="oldtyxt_open" tools:ignore="MissingTranslation">打开</string>
+    <string name="oldtyxt_create" tools:ignore="MissingTranslation">创建</string>
+    <string name="oldtyxt_pdf" tools:ignore="MissingTranslation">PDF (.pdf)</string>
+</resources>
