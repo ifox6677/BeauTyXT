@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">极简编辑器</string>
+    <string name="settings">设置</string>
+    <string name="navigate_up_button_description">返回</string>
+    <string name="welcome">欢迎使用极简编辑器！</string>
+    <string name="text_editor">文本编辑器</string>
+    <string name="more_options">更多选项</string>
+    <string name="plain_text_editor_top_bar_rename_file_button_content_description">重命名文件</string>
+    <string name="io_status_saving_in_progress">保存中…</string>
+    <string name="io_status_saving_success">所有更改已保存</string>
+    <string name="io_status_saving_failure">保存失败</string>
+    <string name="io_status_reading_in_progress">读取中…</string>
+    <string name="io_status_reading_success">所有内容已读取</string>
+    <string name="io_status_reading_failure">读取内容失败</string>
+    <string name="error_info_button_description">错误信息</string>
+    <string name="error_info_dialog_title">错误信息</string>
+    <string name="read_perms_denied_io_exception_guide">此错误可能可以通过重新打开文件来修复。</string>
+    <string name="reading_failure_error_info">读取全部内容失败。编辑内容将覆盖原有内容。</string>
+</resources>
